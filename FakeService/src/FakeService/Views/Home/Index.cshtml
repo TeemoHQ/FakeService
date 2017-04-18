@@ -1,0 +1,356 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var hosCssArr = new string[] { "card card-inverse card-primary", "card card-inverse card-info", "card card-inverse card-danger", "card card-inverse card-warning", "card card-inverse card-success" };
+    var r = new Random();
+}
+@using DataBaseTables;
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+    <meta name="author" content="Łukasz Holeczek">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,jQuery,CSS,HTML,RWD,Dashboard">
+
+    <title>FakeService排班系统</title>
+
+    <link rel="shortcut icon" href="~/MyResource/img/favicon.png">
+    <link href="~/MyResource/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/MyResource/css/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/MyResource/css/style.css" rel="stylesheet" />
+    <script src="~/MyResource/js/app.js"></script>
+    <script src="~/MyResource/js/views/widgets.js"></script>
+    <script type="text/javascript">
+        var navTag = 0;
+        var hosId = "";
+        var typeId = "";
+        var deptId = "";
+        var doctorId = "";
+        var navigationTitle = "&nbsp;";
+        window.onload = load;
+        function load() {
+            document.getElementById("deleteBtn").style.display = "none";
+            document.getElementById("HosDiv").style.display = "";
+            document.getElementById("TypeDiv").style.display = "none";
+            document.getElementById("DeptDiv").style.display = "none";
+            document.getElementById("DoctorDiv").style.display = "none";
+            document.getElementById("SelectAMPMDiv").style.display = "none";
+        }
+        function Reset() {
+            navTag = 0;
+            hosId = "";
+            typeId = "";
+            deptId = "";
+            doctorId = "";
+            navigationTitle = "&nbsp;";
+        }
+        function SelectHospital(id, name) {
+            hosId = id;
+            navTag = 1
+            navigationTitle += name;
+            document.getElementById("NavigationTitle").innerHTML = navigationTitle;
+            document.getElementById("HosDiv").style.display = "none";
+            document.getElementById("TypeDiv").style.display = "";
+            document.getElementById("deleteBtn").style.display = "";
+        }
+        function SelectType(id, name) {
+            typeId = id;
+            navTag = 2
+            navigationTitle += "-" + name;
+            document.getElementById("NavigationTitle").innerHTML = navigationTitle;
+            document.getElementById("TypeDiv").style.display = "none";
+            document.getElementById("DeptDiv").style.display = "";
+        }
+        function SelectDept(id, name) {
+            typeId = id;
+            navTag = 3
+            navigationTitle += "-" + name;
+            document.getElementById("NavigationTitle").innerHTML = navigationTitle;
+            document.getElementById("DeptDiv").style.display = "none";
+            document.getElementById("DoctorDiv").style.display = "";
+        }
+        function SelectDoctor(id, name) {
+            typeId = id;
+            navTag = 4
+            navigationTitle += "-" + name;
+            document.getElementById("NavigationTitle").innerHTML = navigationTitle;
+            document.getElementById("DoctorDiv").style.display = "none";
+            document.getElementById("SelectAMPMDiv").style.display = "";
+        }
+        function SelectAMPM(id) {
+            alert("号源时段自动添加成功");
+            load();
+            Reset();
+        }
+        function Back() {
+            navigationTitle = navigationTitle.substring(0, navigationTitle.lastIndexOf('-'));
+            if (navTag == 0) {
+                return;
+            }
+            else if (navTag == 1) {
+                navTag = 0;
+                navigationTitle = "&nbsp;";
+                document.getElementById("NavigationTitle").innerHTML = navigationTitle;
+                document.getElementById("HosDiv").style.display = "";
+                document.getElementById("TypeDiv").style.display = "none";
+                document.getElementById("deleteBtn").style.display = "none";
+            }
+            else if (navTag == 2) {
+                navTag = 1;
+                document.getElementById("NavigationTitle").innerHTML = navigationTitle;
+                document.getElementById("TypeDiv").style.display = "";
+                document.getElementById("DeptDiv").style.display = "none";
+            }
+            else if (navTag == 3) {
+                navTag = 2;
+                document.getElementById("NavigationTitle").innerHTML = navigationTitle;
+                document.getElementById("DeptDiv").style.display = "";
+                document.getElementById("DoctorDiv").style.display = "none";
+            }
+            else if (navTag == 4) {
+                navTag = 3;
+                document.getElementById("NavigationTitle").innerHTML = navigationTitle;
+                document.getElementById("DoctorDiv").style.display = "";
+                document.getElementById("SelectAMPMDiv").style.display = "none";
+            }
+        }
+    </script>
+</head>
+
+
+<body class="app header-hidden sidebar-hidden aside-menu-fixed aside-menu-hidden">
+    <header class="app-header navbar">
+        <ul class="nav navbar-nav hidden-md-down">
+            <li class="nav-item">
+                <a class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a>
+            </li>
+
+            <li class="nav-item px-1">
+                <a class="nav-link" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item px-1">
+                <a class="nav-link" href="#">Users</a>
+            </li>
+            <li class="nav-item px-1">
+                <a class="nav-link" href="#">Settings</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item hidden-md-down">
+                <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger"></span></a>
+            </li>
+            <li class="nav-item hidden-md-down">
+                <a class="nav-link" href="#"><i class="icon-list"></i></a>
+            </li>
+            <li class="nav-item hidden-md-down">
+                <a class="nav-link" href="#"><i class="icon-location-pin"></i></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img src="~/MyResource/img/avatars/1.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <span class="hidden-md-down">黄强</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+
+                    <div class="dropdown-header text-center">
+                        <strong>Account</strong>
+                    </div>
+
+                    <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">42</span></a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i> Tasks<span class="badge badge-danger">42</span></a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> Comments<span class="badge badge-warning">42</span></a>
+
+                    <div class="dropdown-header text-center">
+                        <strong>Settings</strong>
+                    </div>
+
+                    <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-default">42</span></a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
+                    <div class="divider"></div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
+                </div>
+            </li>
+            <li class="nav-item hidden-md-down">
+                <a class="nav-link navbar-toggler aside-menu-toggler" href="#">☰</a>
+            </li>
+
+        </ul>
+    </header>
+
+    <div class="app-body">
+        <!-- Main content -->
+        <main class="main">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" id="NavigationTitle">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu hidden-md-down">
+                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                        @*<a class="btn btn-secondary" href="#"><i class="icon-speech"></i></a>*@
+                        @*<a class="btn btn-secondary" href="./"><i class="icon-graph"></i> &nbsp;Dashboard</a>*@
+                        <a class="btn btn-secondary" style="cursor:pointer" onclick="Back()" id="deleteBtn"><i class="icon-settings"></i> &nbsp;删除该医院今日以前号源</a>
+                        <a class="btn btn-secondary" style="cursor:pointer" onclick="Back()"><i class="icon-arrow-up"></i> &nbsp;Back</a>
+                    </div>
+                </li>
+            </ol>
+            <div class="container-fluid">
+                <div class="animated fadeIn" style="cursor:pointer">
+                    <div class="row" id="HosDiv">
+                        @foreach (var item in ViewData["Hos"] as List<医院信息>)
+                        {
+                            var css = hosCssArr[r.Next(hosCssArr.Length)];
+                            <div class="col-sm-6 col-lg-3" onclick="SelectHospital(this.id, this.title)" id="@item.id" title="@item.name">
+                                <div class="@css">
+                                    <div class="card-block pb-0">
+                                        <div class="btn-group float-right">
+                                        </div>
+                                        <h1>@item.name</h1>
+                                        <p></p>
+                                    </div>
+                                    <div class="chart-wrapper px-1" style="height:70px;">
+                                        <p>&nbsp; member：@item.coder</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row" id="TypeDiv">
+                        <div class="col-sm-6 col-lg-3" onclick="SelectType(this.id, this.title)" id="1" title="普通门诊">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="h3 m-0">普通门诊</div>
+                                    <div>putongmenzhen...</div>
+                                    <div class="progress progress-xs my-1">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <small class="text-muted">嗯，就是普通门诊</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3" onclick="SelectType(this.id, this.title)" id="2" title="专家门诊">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="h3 m-0">专家门诊</div>
+                                    <div>zhuanjiamenzhen...</div>
+                                    <div class="progress progress-xs my-1">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <small class="text-muted">嗯，就是专家门诊</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3" onclick="SelectType(this.id, this.title)" id="3" title="知名专家">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="h4 m-0">知名专家</div>
+                                    <div>zhiingzhuanjia...</div>
+                                    <div class="progress progress-xs my-1">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <small class="text-muted">嗯，就是知名专家</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3" onclick="SelectType(this.id, this.title)" id="4" title="急诊门诊">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="h4 m-0">急诊门诊</div>
+                                    <div>jizhenmenzhen...</div>
+                                    <div class="progress progress-xs my-1">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <small class="text-muted">嗯，就是急诊门诊</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.col-->
+                    </div>
+
+                    <div class="row" id="DeptDiv">
+                        @foreach (var item in ViewData["Dept"] as List<科室信息>)
+                        {
+                            <div class="col-6 col-lg-3" onclick="SelectDept(this.id, this.title)" id="@item.deptCode" title="@item.deptName">
+                                <div class="card">
+                                    <div class="card-block p-1 clearfix">
+                                        <i class="fa fa-home bg-primary p-1 font-2xl mr-1 float-left"></i>
+                                        <div class="h5 text-primary mb-0 mt-h">@item.deptName</div>
+                                        <div class="text-muted text-uppercase font-weight-bold font-xs">@item.deptIntro"没什么好介绍的"</div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row" id="DoctorDiv">
+                        @foreach (var item in ViewData["Doc"] as List<医生介绍>)
+                        {<div class="col-sm-6 col-md-2" onclick="SelectDoctor(this.id, this.title)" id="@item.doctCode" title="@item.doctName">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="h1 text-muted text-right mb-2">
+                                        <i class="icon-user"></i>
+                                    </div>
+                                    <div class="h3 mb-0">@item.doctName</div>
+                                    <small class="text-muted text-uppercase font-weight-bold">@item.doctIntro</small>
+                                    <div class="progress progress-xs mt-1 mb-0">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="row" id="SelectAMPMDiv">
+                        <div class="col-md-2 col-sm-4" onclick="SelectAMPM(this.id)" id="0">
+                            <div class="card">
+                                <div class="card-block text-center">
+                                    <div class="text-muted small text-uppercase font-weight-bold">AMPM</div>
+                                    <div class="h2 py-1">全天</div>
+                                    <div class="chart-wrapper">
+                                        <canvas id="chart-1" class="chart chart-bar" height="40" width="80"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-4" onclick="SelectAMPM(this.id)" id="1">
+                            <div class="card">
+                                <div class="card-block text-center">
+                                    <div class="text-muted small text-uppercase font-weight-bold">AMPM</div>
+                                    <div class="h2 py-1">上午</div>
+                                    <div class="chart-wrapper">
+                                        <canvas id="chart-1" class="chart chart-bar" height="40" width="80"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-4" onclick="SelectAMPM(this.id)" id="2">
+                            <div class="card">
+                                <div class="card-block text-center">
+                                    <div class="text-muted small text-uppercase font-weight-bold">AMPM</div>
+                                    <div class="h2 py-1">下午</div>
+                                    <div class="chart-wrapper">
+                                        <canvas id="chart-1" class="chart chart-bar" height="40" width="80"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.conainer-fluid -->
+        </main>
+    </div>
+
+</body>
+</html>

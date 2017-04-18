@@ -1,0 +1,4 @@
+#:F:\FakeService\FakeService\src\FakeService\FakeService.xproj
+F:\FakeService\FakeService\src\FakeService\FakeService.xproj|F:\FakeService\FakeService\src\DataModels\DataModels.xproj
+F:\FakeService\FakeService\src\FakeService\FakeService.xproj|F:\FakeService\FakeService\src\ServiceCore\ServiceCore.xproj
+F:\FakeService\FakeService\src\ServiceCore\ServiceCore.xproj|F:\FakeService\FakeService\src\DataModels\DataModels.xproj

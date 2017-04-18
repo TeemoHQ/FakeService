@@ -1,0 +1,121 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+//采用英文: 表示数组 |表示对象
+// ^解释当前字段的含义
+//[]表示当前字段已废弃
+//@表示当前字段为主键
+var dictionary = new Dictionary<string,List<string>>()
+{
+{"医院信息",new List<string>(){"@id","name","coder","extend"}},
+{"病人信息",new List<string>(){"@patientId","hospitalId","platformId","name","sex","birthday","idNo","cardNo","guardianNo","address","phone","patientType","accountNo","accBalance",}},
+{"建档信息",new List<string>(){"@cardNo","hospitalId","securityNo","patientid","patientCard","platformId","accBalance^建档后余额"}},
+{"缴费明细信息",new List<string>()
+{
+    "@id","billNo","hospitalId","patientId","billDate","billType","billFee","billSeq",
+    "deptCode","deptName","doctCode","doctName","hosFeeNo","diseaseCode",
+    "itemNo","productCode","itemName","itemSpecs","itemLiquid","itemUnits","itemQty","itemPrice","itemCode","execDeptName","ybInfo", "status^1未结算 2已结算","tradeTime"
+}},
+{"结算记录",new List<string>(){"@receiptNo","hospitalId","billNo","patientId","tradeTime","billFee","itemName","itemSpecs","itemLiquid","itemUnits","itemQty","itemPrice","cost","billType"}},
+{"科室信息",new List<string>(){"@deptCode","hospitalId","deptName","parentDeptCode","parentDeptName","simplePy","fullPy","deptIntro","regType^挂号类别","regTypeName^挂号类别名称","regMode^挂号方式"}},
+{"医生介绍",new List<string>(){"@doctCode^医生代码","hospitalId","doctName^医生姓名","doctPY^科室名称的全拼","doctSimplePY^科室名称的简拼","sex^性别","doctLogo^医生头像短路径","doctLevel^医生级别","doctProfe^医生职称","doctSpec^医生特长","doctIntro^医生介绍","corpCode^医院id在排班系统中的编号","deptCode^科室代码","deptName^科室名称","doctPhoneNum^医生电话","doctPictureIntranetUrl^医生头像全路径"}},
+{"排班信息",new List<string>()
+{
+	"@scheduleId","hospitalId","medDate","deptCode","deptName","parentDeptCode","parentDeptName",
+	"doctCode","doctName","doctTech","medAmPm","regfee","treatfee",
+	"regAmount","hosRegType^医院的挂号类别","regMode","regType"}
+},
+{"号源明细",new List<string>(){"@appoNo","hospitalId","scheduleId","medBegtime","medEndtime","restNum","isEnable","temp"}},
+{"挂号预约记录",new List<string>()
+{
+    "@regNo","appoNo^序号","scheduleId","hospitalId","patientId",
+    "tradeTime","medDate","medTime","medAmPm",
+    "hospCode","hospName","deptName","doctName","doctTech",
+    "address","appoFrom",
+    "regFee","treatFee","regAmount",
+    "status^1预约成功 2取号成功 3取消成功 4已过期",
+    "orderNo^取号密码","doctCode","deptCode","payStatus^支付状态","lockId^锁号ID",
+}},
+{"充值记录",new List<string>(){"@No","hospitalId","cardNo","cardType","patientId","tradeMode","accountNo","cash","receiptNo","tradeTime","operId","optType^交易类型(消费、充值)"}},
+{"住院患者信息",new List<string>(){
+    "@patientHosId^住院号","hospitalId","status^住院状态","createDate^入院时间","outDate^出院时间","area^病区","bedNo^床号","deptName^科室","visiteId^住院次数",
+    "name^姓名","sex^性别","birthday^生日","idNo^身份证号","cardNo^诊疗卡号","guardianNo^监护人身份证号","address^家庭地址","phone^联系电话",
+    "patientType^病人类别","accountNo^交易账户号","hosAccBalanceCount^住院预缴金余额凭证数量","IsArrearage^欠款标志","[patientId]",
+    "accBalance^住院预缴金余额","patientAccBalance^门诊预缴金余额","cost^累计自负费用","balance^余款","securityBalance^担保金",
+    }},
+{"住院患者费用明细",new List<string>(){"@id","hospitalId","patientHosId^住院号","tradeTime","itemName","itemSpecs","itemLiquid","itemUnits","itemQty","itemPrice","cost","visited","ratio","deptName",}},
+{"住院充值记录",new List<string>(){"@receiptNo","hospitalId","cardNo","tradeMode","tradeTime","cash","visitId","operId","payerName^操作人姓名"}},
+{"床位信息",new List<string>(){"@wardCode^病区编码","hospitalId","wardName^病区名称","totalBedNum^总床位数","leftBedNum^剩余床位数",}},
+{"检验基本信息",new List<string>(){"@reportId","hospitalId","patientId","patientName","age","sex","cardNo","inhospId","examType","checkPart","checkDoc","sendTime","resultTime","auditTime^检验报告单审核日期","printTimes","remark","inspectDoctor^送检医生","auditDoc^核对医生","examResult^临床诊断","sampleType^标本种类"}},
+{"检验项目",new List<string>(){"@id","patientId","hospitalId","itemName","itemRealValue","itemRefRange","itemMark","itemUnits^单位","quaResult^定性结果","itemAbbr^项目名称缩写"}},
+{"影像诊断结果",new List<string>{"@id","patientId","hospitalId","cardNo^卡号","inspecDoctCode^送检医生工号","inspecDoctName^送检医生姓名","inspecTime^送检时间","checkDate^检查日期","auditDoctCode^审核医生工号","auditDoctName^审核医生姓名","checkStatus^检查状态","checkDesc^检查描述","checkResult^检查结果","auditDate^审核日期","checkNo^检查号码","patientNo^病案号","wardName^病区名称","wardBed^病区床号","sex^病人性别","age^病人年龄","inspecDeptName^送检科室名称","name^姓名","checkItem^检查项目","idNo^身份证号码","diagnosis^检查诊断","suggestion^检查建议","reportTime^报告时间",}},
+{"药品项目信息",new List<string>(){"@medicineCode^药品编码","hospitalId","medicineName^药品名称","specifications^规格","price^价格","packagingUnit^包装单位","miniUnit^最小单位","priceUnit^计价单位","producer^生产厂家","type^类型","medicalRatio^医保报销比例"}},
+{"收费项目信息",new List<string>(){"@itemCode^项目编码","hospitalId","itemName^项目名称","specifications^规格","price^价格","priceUnit^计价单位","producer^生产厂家","type^类型","medicalRatio^医保报销比例"}},
+{"医保科室信息",new List<string>(){"@HisDeptCode^HIS科室编码","hospitalId"," HisDeptName^HIS科室名称","SiDeptCode^医保科室编码","SiDeptName^医保科室名称"}},
+{"医保结算信息",new List<string>{"@id","patientId","hospitalId","selfMoney^自费金额","commonMoney^统筹支付","accountMoney^账户支付","lastBalance^医保余额","hospitalMoney^医院支付"}},
+};
+#>
+using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+namespace DataBaseTables
+{
+    #region model
+<# foreach (var kvp in dictionary) { #>
+    public partial class <#= kvp.Key #>
+    {
+<#      foreach (var m in kvp.Value) {
+            var tmp = m.Split('^');
+            var obs = tmp[0].StartsWith("[")&&tmp[0].EndsWith("]");
+            tmp[0] = tmp[0].Trim(new[] {'[', ']'});
+            var s = tmp[0];
+#>
+<#          if (tmp.Length > 1) { #>
+        /// <summary>
+        /// <#= tmp[1] #>
+        /// </summary>
+<#          } #>
+<#if (obs){ #>
+        [Obsolete]
+<# } #>
+<#          if(s.Contains(':')){ 
+                int n = s.IndexOf(':');
+#>
+        public List<<#= s.Substring(0, n) #>> <#= s.Substring(n + 1) #> { get; set; }
+<#          }else if(s.Contains('|')) { 
+                int n = s.IndexOf('|');
+#>
+        public <#= s.Substring(0, n) #> <#= s.Substring(n + 1) #> { get; set; }
+<#          }else { #>
+		<# if(s.Contains('@')) {var str=s.Substring(1); #>
+[Key] 
+        public string <#= str #> { get; set; }
+		<#}else {#> 
+	    public string <#= s #> { get; set; }
+<# } #>
+<# } #>
+<# } #>
+    }
+
+<#  } #>
+    #endregion 
+	//dotnet ef migrations add MyFirstMigration
+    //dotnet ef database update
+    public class MyDBContext : DbContext
+    {
+        public MyDBContext(DbContextOptions<MyDBContext> options) : base(options)
+        {
+
+        }
+	    #region DbContext
+		<# foreach (var kvp in dictionary) { if(kvp.Value.Count()==1&&kvp.Value[0]=="success") { continue;}  #>
+public DbSet<<#= kvp.Key #>> <#= kvp.Key #> { get; set; }
+        <# } #>#endregion
+	}
+
+}
