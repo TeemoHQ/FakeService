@@ -26,7 +26,7 @@ namespace FakeService.Business
             {
                 var model = req.ToObject<req排班科室信息查询>();
                 var list = from p in context.科室信息
-                           where  p.regType == model.regType //p.regMode == model.regMode &&
+                           where p.regType == model.regType //p.regMode == model.regMode &&
                            select p;
                 if (list == null || list.Count() == 0)
                 {
@@ -142,6 +142,7 @@ namespace FakeService.Business
                             where p.deptCode == model.deptCode
                             && p.regType == model.regType
                             && DateTime.Parse(model.startDate).Date == (DateTime.Parse(p.medDate).Date)
+                            && p.hospitalId == model.hospitalId
                             select p).ToList(); //如果不转换成list，那么There is already an open DataReader associated with this Connection which must be closed first
                 if (list == null || list.Count() == 0)
                 {
@@ -154,11 +155,14 @@ namespace FakeService.Business
                     res.success = true;
                     foreach (var temp in list)
                     {
+                        var a = DateTime.Parse(model.startDate);
+                        var b = DateTime.Parse(context.号源明细.ToList()[0].medBegtime);
+
                         var restnum = model.regMode == "2" ? context.号源明细.Where(p => p.scheduleId == temp.scheduleId && p.isEnable == "1"
                         && DateTime.Parse(model.startDate).Date == DateTime.Parse(p.medBegtime).Date
-                        && DateTime.Compare(DateTime.Parse(model.startDate), DateTime.Parse(p.medBegtime)) > 0).Count()
+                        && DateTime.Compare(DateTimeCore.Now, DateTime.Parse(p.medBegtime)) > 0&&p.hospitalId==model.hospitalId).Count() 
                         : context.号源明细.Where(p => p.scheduleId == temp.scheduleId && p.isEnable == "1"
-                        && DateTime.Parse(model.startDate).Date == DateTime.Parse(p.medBegtime).Date).Count();
+                        && DateTime.Parse(model.startDate).Date == DateTime.Parse(p.medBegtime).Date && p.hospitalId == model.hospitalId).Count();
                         res.data = new List<DataModels.排班信息>();
                         res.data.Add(new DataModels.排班信息
                         {
@@ -211,6 +215,7 @@ namespace FakeService.Business
                            where p.scheduleId == model.scheduleId
                                  && p.isEnable == "1"
                                  && DateTime.Parse(model.medDate).Date == (DateTime.Parse(p.medBegtime).Date)
+                                 && p.hospitalId == model.hospitalId
                            select p;
                 if (list == null || list.Count() == 0)
                 {
@@ -334,7 +339,8 @@ namespace FakeService.Business
                     doctCode = model.doctCode,
                     deptCode = model.deptCode,
                     payStatus = model.regMode == "1" ? "100" : "200",
-                    lockId = model.lockId
+                    lockId = model.lockId,
+                    hospitalId=model.hospitalId
                 };
                 context.挂号预约记录.Add(newData);
                 context.SaveChanges();

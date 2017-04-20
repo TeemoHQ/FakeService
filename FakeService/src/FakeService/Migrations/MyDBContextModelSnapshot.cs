@@ -379,6 +379,18 @@ namespace FakeService.Migrations
                     b.ToTable("结算记录");
                 });
 
+            modelBuilder.Entity("DataBaseTables.科室类别", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("科室类别");
+                });
+
             modelBuilder.Entity("DataBaseTables.科室信息", b =>
                 {
                     b.Property<string>("deptCode")

@@ -30,6 +30,7 @@ var dictionary = new Dictionary<string,List<string>>()
 	"regAmount","hosRegType^医院的挂号类别","regMode","regType"}
 },
 {"号源明细",new List<string>(){"@appoNo","hospitalId","scheduleId","medBegtime","medEndtime","restNum","isEnable","temp"}},
+{"科室类别",new List<string>(){"@Id","Name"}},
 {"挂号预约记录",new List<string>()
 {
     "@regNo","appoNo^序号","scheduleId","hospitalId","patientId",

@@ -1,0 +1,184 @@
+Hosting environment: Production
+Content root path: F:\FakeService\Publish
+Now listening on: http://localhost:33093
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/  
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method FakeService.Controllers.HomeController.Index (FakeService) with arguments ((null)) - ModelState is Valid
+dbug: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[2]
+      Compiling query model: 
+      'from 医院信息 <generated>_0 in DbSet<医院信息>
+      select <generated>_0'
+dbug: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[3]
+      Optimized query model: 
+      'from 医院信息 <generated>_0 in DbSet<医院信息>
+      select <generated>_0'
+dbug: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[5]
+      TRACKED: True
+      (QueryContext queryContext) => IEnumerable<医院信息> _ShapedQuery(
+          queryContext: queryContext, 
+          shaperCommandContext: SelectExpression: 
+              SELECT `医`.`id`, `医`.`coder`, `医`.`extend`, `医`.`name`
+              FROM `医院信息` AS `医`
+          , 
+          shaper: UnbufferedEntityShaper<医院信息>
+      )
+      
+dbug: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[3]
+      Opening connection to database 'FakeService' on server '127.0.0.1'.
+dbug: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[4]
+      Closing connection to database 'FakeService' on server '127.0.0.1'.
+dbug: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[2]
+      Compiling query model: 
+      'from 科室类别 <generated>_0 in DbSet<科室类别>
+      select <generated>_0'
+dbug: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[3]
+      Optimized query model: 
+      'from 科室类别 <generated>_0 in DbSet<科室类别>
+      select <generated>_0'
+dbug: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[5]
+      TRACKED: True
+      (QueryContext queryContext) => IEnumerable<科室类别> _ShapedQuery(
+          queryContext: queryContext, 
+          shaperCommandContext: SelectExpression: 
+              SELECT `科`.`Id`, `科`.`Name`
+              FROM `科室类别` AS `科`
+          , 
+          shaper: UnbufferedEntityShaper<科室类别>
+      )
+      
+dbug: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[3]
+      Opening connection to database 'FakeService' on server '127.0.0.1'.
+dbug: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[4]
+      Closing connection to database 'FakeService' on server '127.0.0.1'.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.ViewResultExecutor[1]
+      Executing ViewResult, running view at path /Views/Home/Index.cshtml.
+info: Microsoft.Extensions.DependencyInjection.DataProtectionServices[0]
+      User profile not available. Using 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ASP.NET\4.0.30319.0\AutoGenKeys\S-1-5-82-1498385128-1836226324-912475658-1241964423-3690673773\DataProtection' as key repository and Windows DPAPI to encrypt keys at rest.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action FakeService.Controllers.HomeController.Index (FakeService) in 6400.5768ms
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/js/app.js  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/css/simple-line-icons.css  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/css/font-awesome.css  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 7562.476ms 200 text/html; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/css/style.css  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/js/views/widgets.js  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/js/views/widgets.js'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\js\views\widgets.js'
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/css/font-awesome.css'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\css\font-awesome.css'
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/js/app.js'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\js\app.js'
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/css/simple-line-icons.css'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\css\simple-line-icons.css'
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/css/style.css'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\css\style.css'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 21.6276ms 200 application/javascript
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 44.7463ms 200 text/css
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 48.7261ms 200 text/css
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/css/Loadingstyle.css  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/css/Loadingstyle.css'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\css\Loadingstyle.css'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 59.878ms 200 application/javascript
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 2.5808ms 200 text/css
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 55.901ms 200 text/css
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/js/jquery.js  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/js/jquery.js'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\js\jquery.js'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 4.0616ms 200 application/javascript
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/img/avatars/1.jpg  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/img/avatars/1.jpg'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\img\avatars\1.jpg'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 0.6455ms 200 image/jpeg
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/fonts/Simple-Line-Icons.woff2?v=2.4.0  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/fonts/Simple-Line-Icons.woff2'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\fonts\Simple-Line-Icons.woff2'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 0.7037ms 200 application/font-woff2
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/fonts/Simple-Line-Icons.ttf?v=2.4.0  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/fonts/Simple-Line-Icons.ttf'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\fonts\Simple-Line-Icons.ttf'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 6.0434ms 200 application/x-font-ttf
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/img/favicon.png  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/img/favicon.png'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\img\favicon.png'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 0.675ms 200 image/png
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost:3344/Home/GetDepts application/x-www-form-urlencoded; charset=UTF-8 47
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method FakeService.Controllers.HomeController.GetDepts (FakeService) with arguments ({
+        "requestInstitution": "{\"TypeId\":\"1\"}"
+      }) - ModelState is Valid
+dbug: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[2]
+      Compiling query model: 
+      'from 科室信息 p in DbSet<科室信息>
+      where p.regType == __req_TypeId_0
+      select p'
+dbug: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[3]
+      Optimized query model: 
+      'from 科室信息 p in DbSet<科室信息>
+      where p.regType == __req_TypeId_0
+      select p'
+dbug: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[5]
+      TRACKED: True
+      (QueryContext queryContext) => IEnumerable<科室信息> _ShapedQuery(
+          queryContext: queryContext, 
+          shaperCommandContext: SelectExpression: 
+              SELECT `p`.`deptCode`, `p`.`deptIntro`, `p`.`deptName`, `p`.`fullPy`, `p`.`hospitalId`, `p`.`parentDeptCode`, `p`.`parentDeptName`, `p`.`regMode`, `p`.`regType`, `p`.`regTypeName`, `p`.`simplePy`
+              FROM `科室信息` AS `p`
+              WHERE `p`.`regType` = @__req_TypeId_0
+          , 
+          shaper: UnbufferedEntityShaper<科室信息>
+      )
+      
+dbug: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[3]
+      Opening connection to database 'FakeService' on server '127.0.0.1'.
+dbug: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[4]
+      Closing connection to database 'FakeService' on server '127.0.0.1'.
+info: Microsoft.AspNetCore.Mvc.Internal.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action FakeService.Controllers.HomeController.GetDepts (FakeService) in 946.1374ms
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 960.1297ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/fonts/fontawesome-webfont.woff2?v=4.6.3  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/fonts/fontawesome-webfont.woff2'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\fonts\fontawesome-webfont.woff2'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 7.6948ms 200 application/font-woff2
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/fonts/fontawesome-webfont.woff?v=4.6.3  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/fonts/fontawesome-webfont.woff'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\fonts\fontawesome-webfont.woff'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 4.8394ms 200 application/font-woff
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:3344/MyResource/fonts/fontawesome-webfont.ttf?v=4.6.3  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/fonts/fontawesome-webfont.ttf'. Physical path: 'F:\FakeService\Publish\MyStaticFiles\fonts\fontawesome-webfont.ttf'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 6.5223ms 200 application/x-font-ttf

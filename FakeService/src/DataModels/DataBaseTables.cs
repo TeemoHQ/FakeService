@@ -281,7 +281,7 @@ namespace DataBaseTables
 
     public partial class 排班信息
     {
-		[Key] 
+		[Key]
         public string scheduleId { get; set; }
 				 
 	    public string hospitalId { get; set; }
@@ -338,6 +338,14 @@ namespace DataBaseTables
 	    public string isEnable { get; set; }
 		 
 	    public string temp { get; set; }
+    }
+
+    public partial class 科室类别
+    {
+		[Key] 
+        public string Id { get; set; }
+				 
+	    public string Name { get; set; }
     }
 
     public partial class 挂号预约记录
@@ -1064,6 +1072,7 @@ namespace DataBaseTables
         public DbSet<医生介绍> 医生介绍 { get; set; }
         public DbSet<排班信息> 排班信息 { get; set; }
         public DbSet<号源明细> 号源明细 { get; set; }
+        public DbSet<科室类别> 科室类别 { get; set; }
         public DbSet<挂号预约记录> 挂号预约记录 { get; set; }
         public DbSet<充值记录> 充值记录 { get; set; }
         public DbSet<住院患者信息> 住院患者信息 { get; set; }

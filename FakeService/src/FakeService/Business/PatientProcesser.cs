@@ -25,7 +25,7 @@ namespace FakeService.Business
             try
             {
                 var model = req.ToObject<req病人信息查询>();
-                var info = context.病人信息.FirstOrDefault(p => p.cardNo == model.cardNo);
+                var info = context.病人信息.FirstOrDefault(p => p.cardNo == model.cardNo && p.hospitalId == model.hospitalId);
                 if (info == null)
                 {
                     res.success = false;
@@ -134,6 +134,7 @@ namespace FakeService.Business
                     patientType = model.patientType,
                     accountNo = model.accountNo,
                     accBalance = "0",
+                    hospitalId = model.hospitalId
                 };
                 context.病人信息.Add(newInfo);
                 context.SaveChanges();
@@ -240,7 +241,7 @@ namespace FakeService.Business
             var res = new res病人类别
             {
                 success = false,
-                msg="暂时不知此",
+                msg = "暂时不知此",
             };
             return res;
         }
@@ -260,7 +261,7 @@ namespace FakeService.Business
             try
             {
                 var model = req.ToObject<req住院患者信息查询>();
-                var info = context.住院患者信息.FirstOrDefault(p => p.patientHosId == model.patientId);
+                var info = context.住院患者信息.FirstOrDefault(p => p.patientHosId == model.patientId && p.hospitalId == model.hospitalId);
                 if (info == null)
                 {
                     res.success = false;
@@ -282,7 +283,7 @@ namespace FakeService.Business
                         name = info.name,
                         patientType = info.patientType,
                         phone = info.phone,
-                        sex = info.sex
+                        sex = info.sex,
                     };
                 }
             }

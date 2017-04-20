@@ -12,7 +12,7 @@ namespace FakeService.Business
 {
     public class TakeNumProcesser
     {
-        public class 号源信息查询 : ProcesserBase
+        public class 挂号预约记录查询 : ProcesserBase
         {
             public override string Service
             {
@@ -31,6 +31,7 @@ namespace FakeService.Business
                                where p.patientId == model.patientId
                                      && DateTime.Parse(p.medDate).Date == DateTime.Now.Date
                                      && p.status == "0"//0 已预约,1 已挂号,2 已取消,3 已过期,4 已停诊,5 已退号
+                                     &&p.hospitalId==model.hospitalId
                                select p;
                     if (list == null || list.Count() == 0)
                     {
@@ -97,7 +98,7 @@ namespace FakeService.Business
                 try
                 {
                     var model = req.ToObject<req预约取号>();
-                    var 记录 = context.挂号预约记录.FirstOrDefault(p => p.appoNo == model.appoNo && p.status == "0");
+                    var 记录 = context.挂号预约记录.FirstOrDefault(p => p.appoNo == model.appoNo && p.status == "0" && p.hospitalId == model.hospitalId);
                     if (记录 == null)
                     {
                         res.success = false;
@@ -158,7 +159,7 @@ namespace FakeService.Business
                 try
                 {
                     var model = req.ToObject<req取消预约>();
-                    var 记录 = context.挂号预约记录.FirstOrDefault(p => p.appoNo == model.appoNo && p.status == "0");
+                    var 记录 = context.挂号预约记录.FirstOrDefault(p => p.appoNo == model.appoNo && p.status == "0" && p.hospitalId == model.hospitalId);
                     if (记录 == null)
                     {
                         res.success = false;
